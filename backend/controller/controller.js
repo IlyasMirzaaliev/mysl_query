@@ -47,11 +47,11 @@ exports.delete = (req, res) => {
   });
 };
 
-
+//Search by Fisrt Name
 exports.search = (req, res) => {
   User.searchByName(req.params.firstName, (err, data) => {
     if (err) {
-      res.status(404).send({ message: `USER NOT FOUND ${err}` });
+      res.status(404).send({ message: req.params.firstName + ": not exists"  });
     } else {
       res.send(data);
     }

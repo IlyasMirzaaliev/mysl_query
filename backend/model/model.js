@@ -40,6 +40,8 @@ User.getAll = (result) => {
   });
 };
 
+//delete User
+
 User.deleteUser = (userID, result) => {
   sql.query(`DELETE FROM myTable WHERE userID = ${userID}`, (err, res) => {
     if (err) {
@@ -57,7 +59,9 @@ User.deleteUser = (userID, result) => {
   });
 };
 
-User.searchByName = (firstName, result) => {
+
+//Search by Name
+/*User.searchByName = (firstName, result) => {
   sql.query(
     `SELECT * FROM myTable WHERE firstName LIKE '${firstName}'`,
     (err, res) => {
@@ -67,6 +71,30 @@ User.searchByName = (firstName, result) => {
         return;
       }
       result(null, res);
+    }
+  );
+};*/
+
+
+User.searchByName = (firstName, result) => {
+  sql.query(
+    `SELECT * FROM myTable WHERE firstName LIKE '${firstName}'`,
+    (error, res) => {
+      if (error) {
+        console.log(
+          "Cannot delete user: " + err + " Syntax error from FRONTEND"
+        );
+        result(null, error);
+        return;
+      }
+      if (res.length <= 0) {
+        result({ kind: "user_not_found" }, null);
+        return;
+      } else {
+        console.log("user found: " + firstName);
+        result(null, res);
+        return;
+      }
     }
   );
 };
