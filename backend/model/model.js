@@ -1,9 +1,6 @@
 const sql = require("../dbconf/dbconf.js");
 
-
-
 //user registration
-
 
 //Created user model
 const User = function (user) {
@@ -24,8 +21,6 @@ User.create = (newUser, result) => {
     }
   });
 };
-
-module.exports = User;
 
 //getting all users
 
@@ -59,22 +54,27 @@ User.deleteUser = (userID, result) => {
   });
 };
 
-
-//Search by Name
-/*User.searchByName = (firstName, result) => {
+// user Update {POST}
+User.updateUser = (userID, user, result) => {
   sql.query(
-    `SELECT * FROM myTable WHERE firstName LIKE '${firstName}'`,
+    `UPDATE myTable SET firstName = ?, lastName = ?, email = ? WHERE userID = ?`,
+    [user.firstName, user.lastName, user.email, userID],
     (err, res) => {
       if (err) {
-        console.log(`CANNOT find`);
-        result(null, err);
+        console.log(err);
+        result(err, null);
         return;
       }
-      result(null, res);
+      if (res.affectedRows == 0) {
+        result({ kind: "USER_NOT_FOUND" }, null);
+        result(null, { userID: userID, ...user });
+      } else {
+        console.log("user updated");
+        result(null, res);
+      }
     }
   );
-};*/
-
+};
 
 User.searchByName = (firstName, result) => {
   sql.query(
@@ -99,4 +99,4 @@ User.searchByName = (firstName, result) => {
   );
 };
 
-
+module.exports = User;
