@@ -12,7 +12,18 @@
                 <input class="input" type="text" placeholder="Last Name" v-model="lastName">
             </div>
         </div>
-                <div class="field">
+
+<div class="field">
+            <label class="labes">Mob Tel</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Mob Tel" v-model="mobTel">
+            </div>
+        </div>
+
+
+
+
+            <div class="field">
             <label class="labes">Email</label>
             <div class="control">
                 <input class="input" type="text" placeholder="Email" v-model="email">
@@ -35,6 +46,7 @@ export default {
         return {
             firstName: "",
             lastName: "",
+            mobTel: "",
             email: ""
         }
     },
@@ -44,10 +56,12 @@ export default {
             await axios.post("http://localhost:3000/users/", {
                 firstName: this.firstName,
                 lastName: this.lastName,
+                mobTel: this.mobTel,
                 email: this.email
             });
             this.firstName = "";
             this.lastName = "";
+            this.mobTel = "";
             this.email = "";
             this.$router.push('/')
             } catch (err) {

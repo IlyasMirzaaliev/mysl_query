@@ -9,6 +9,7 @@ exports.create = (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
+    mobTel: req.body.mobTel,
   });
   User.create(user, (err, data) => {
     if (err) {
@@ -17,6 +18,16 @@ exports.create = (req, res) => {
       });
     } else {
       res.send(data);
+    }
+  });
+};
+
+exports.showUserById = (req, res) => {
+  User.getUserById(req.params.userID, (err, result) => {
+    if (err) {
+      result.send(err);
+    } else {
+      res.send(result);
     }
   });
 };

@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 import App from "./App.vue";
 import CreateUser from "./components/AddUser.vue";
 import Index from "./components/UserList.vue";
+import Edit from "./components/EditUser.vue";
+// import SearchUser from "./components/SearchUser.vue";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -19,6 +21,16 @@ const routes = [
     path: "/",
     component: Index,
   },
+  {
+    name: "Edit",
+    path: "/edit/:id",
+    component: Edit,
+  },
+  // {
+  //   name: "Search",
+  //   path: "/search/:firstName",
+  //   component: SearchUser,
+  // },
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
